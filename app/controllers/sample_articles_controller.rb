@@ -1,9 +1,10 @@
 class SampleArticlesController < ApplicationController
+
   before_action :set_sample_article, only: %i[ show edit update destroy ]
 
   # GET /sample_articles or /sample_articles.json
   def index
-    @sample_articles = SampleArticle.all
+     @sample_articles = SampleArticle.all
   end
 
   # GET /sample_articles/1 or /sample_articles/1.json
@@ -17,6 +18,7 @@ class SampleArticlesController < ApplicationController
 
   # GET /sample_articles/1/edit
   def edit
+
   end
 
   # POST /sample_articles or /sample_articles.json

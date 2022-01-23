@@ -1,25 +1,36 @@
 <p id="notice"><%= notice %></p>
+<%
+=begin%>
+ <p><%= l Time.now, format: :short %></p>
+<%
+=end%>
 
-<h1>Articles</h1>
+<h1>記事</h1>
+
+
+
+
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Content</th>
+
+<h1>タイトル<h1>
+      <th>内容</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
 
+
     <% @articles.each do |article| %>
       <tr>
-        <td><%= article.title %></td>
+        <td>  <%= article.title%></td>
         <td><%= article.content %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '詳細', article %></td>
+        <td><%= link_to '編集', edit_article_path(article) %></td>
+        <td><%= link_to '削除', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -27,4 +38,6 @@
 
 <br>
 
-<%= link_to 'New Sample Article', new_article_path %>
+<%= link_to '新しい記事を書く', new_article_path %>
+
+<%= link_to "最終確認用ボタン", "#", class: "btn btn-primary" %>

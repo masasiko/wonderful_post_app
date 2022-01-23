@@ -4,6 +4,9 @@ class ArticlesController < ApplicationController
 
   def index
     @articles=Article.all
+
+
+
   end
 
   def show
@@ -20,21 +23,31 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to @article, notice: "Article was successfully created."
+      redirect_to @article, notice: "#{t.()}の作成完了"
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to article_url(@article), notice: "Sample article was successfully updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @article.update(article_params)
+      redirect_to @article, notice: "#{t('activerecord.models.article')}の編集完了"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
+
+
+
+    def destroy
+      @article.destroy
+
+      respond_to do |format|
+        format.html { redirect_to articles_url, notice: "#{t.()}の削除完了"}
+
+      end
+    end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

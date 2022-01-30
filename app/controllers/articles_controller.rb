@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
 
-  before_action :set_article, only: %i[ show edit update destroy ]
 
+  before_action :set_article, only: %i[ show edit update destroy ]
   def index
     @articles=Article.all
 
@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+
   end
 
   def new
@@ -21,32 +22,38 @@ class ArticlesController < ApplicationController
 
 
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.new(article_params)
     if @article.save
-      redirect_to @article, notice: "#{t.()}の作成完了"
+      redirect_to @article, notice: "#{t('activerecord.models.article')}を作成しました。"
     else
       render :new, status: :unprocessable_entity
     end
   end
 
+  # PATCH/PUT /articles/1
+
   def update
+
     if @article.update(article_params)
-      redirect_to @article, notice: "#{t('activerecord.models.article')}の編集完了"
+      redirect_to @article, notice: "#{t('activerecord.models.article')}を編集しました。"
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-
-
+  # DELETE /articles/1
+  # def destroy
+  #   @article.destroy
+  #   edirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
     def destroy
       @article.destroy
 
       respond_to do |format|
-        format.html { redirect_to articles_url, notice: "#{t.()}の削除完了"}
+        format.html { redirect_to articles_url, notice: " article was successfully destroyed." }
 
-      end
-    end
+   end
+  end
+
 
 
   private

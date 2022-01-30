@@ -8,7 +8,6 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-// Bootstrapの追加
 import "bootstrap";
 import "../stylesheets/application";
 
@@ -19,3 +18,4 @@ import "../stylesheets/application";
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+//=require jquery_ujs

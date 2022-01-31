@@ -15,9 +15,17 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+
   end
 
   def edit
+
+    @article = article.find(params[:id])
+    if @article.user == current_user
+        render "edit"
+      else
+        redirect_to articles_path
+      end
   end
 
 
@@ -28,6 +36,14 @@ class ArticlesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+
+
+    @article = article.find(params[:id])
+    if @article.user == current_user
+        render "create"
+      else
+        redirect_to articles_path
+      end
   end
 
   # PATCH/PUT /articles/1
@@ -39,6 +55,12 @@ class ArticlesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+    @article = article.find(params[:id])
+    if @article.user == current_user
+        render "update"
+      else
+        redirect_to articles_path
+      end
   end
 
   # DELETE /articles/1
@@ -47,9 +69,14 @@ class ArticlesController < ApplicationController
   #   edirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
     def destroy
       @article.destroy
-
       redirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
+      @article = article.find(params[:id])
+    if @article.user == current_user
+        render "create"
+      else
+        redirect_to articles_path
       end
+     end
 
 
 

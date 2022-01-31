@@ -48,11 +48,9 @@ class ArticlesController < ApplicationController
     def destroy
       @article.destroy
 
-      respond_to do |format|
-        format.html { redirect_to articles_url, notice: " article was successfully destroyed." }
 
-   end
-  end
+      redirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
+      end
 
 
 

@@ -4,5 +4,5 @@ class Article < ApplicationRecord
 
   # I18n.t('title') #=> 'Hello World'
   # I18n.t('text') #
-
+  belongs_to :user
 end

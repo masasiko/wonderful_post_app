@@ -17,19 +17,12 @@
         <td><%= article.title %></td>
         <td><%= article.content %></td>
         <td>
+
           <%= link_to '詳細', article, class: "btn btn-success" %>
+          <% if user_signed_in? && current_user.id == article.user_id %>
           <%= link_to '編集', edit_article_path(article), class: "btn btn-warning" %>
-
-               <% if @user.id == current_user.id %>
-        <%= link_to '編集', edit_user_path(current_user.id) do %>
-            <div class= " edit btn btn-outline-secondary btn-default btn-block" >
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></div>
-        <% end %>
-        <% end %>
-
-
           <%= link_to '削除', article, class: "btn btn-danger", method: :delete, data: { confirm: '削除しますか？' } %>
-
+        <% end %>
         </td>
       </tr>
     <% end %>

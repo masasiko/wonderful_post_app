@@ -2,11 +2,9 @@ class ArticlesController < ApplicationController
 
 
   before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :baria_user, only: [:edit, :destroy]
   def index
     @articles=Article.all
-
-
-
   end
 
   def show
@@ -15,17 +13,16 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-
   end
 
   def edit
 
-    @article = article.find(params[:id])
-    if @article.user == current_user
-        render "edit"
-      else
-        redirect_to articles_path
-      end
+    # @article = article.find(params[:id])
+    # if @article.user == current_user
+    #     render "edit"
+    #   else
+    #     redirect_to articles_path
+    #   end
   end
 
 
@@ -38,12 +35,12 @@ class ArticlesController < ApplicationController
     end
 
 
-    @article = article.find(params[:id])
-    if @article.user == current_user
-        render "create"
-      else
-        redirect_to articles_path
-      end
+    # @article = article.find(params[:id])
+    # if @article.user == current_user
+    #     render "create"
+    #   else
+    #     redirect_to articles_path
+    #   end
   end
 
   # PATCH/PUT /articles/1
@@ -55,12 +52,12 @@ class ArticlesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
-    @article = article.find(params[:id])
-    if @article.user == current_user
-        render "update"
-      else
-        redirect_to articles_path
-      end
+    # @article = article.find(params[:id])
+    # if @article.user == current_user
+    #     render "update"
+    #   else
+    #     redirect_to articles_path
+    #   end
   end
 
   # DELETE /articles/1
@@ -70,12 +67,12 @@ class ArticlesController < ApplicationController
     def destroy
       @article.destroy
       redirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
-      @article = article.find(params[:id])
-    if @article.user == current_user
-        render "create"
-      else
-        redirect_to articles_path
-      end
+    #   @article = article.find(params[:id])
+    # if @article.user == current_user
+    #     render "create"
+    #   else
+    #     redirect_to articles_path
+    #   end
      end
 
 
@@ -91,3 +88,11 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :content)
     end
   end
+
+  private
+    def baria_user
+      unless User.find_by(public_uid: params[:id]).user_id == current_user.id
+        flash[:notice] = "権限がありません"
+        redirect_to posts_path
+      end
+    end

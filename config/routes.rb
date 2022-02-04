@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :users, only: :show
   # resources :mypage, only: :index
 
-
   resources :articles
 root to: 'articles#index'
+
+
+    root :to => 'articles#index'
+   
+
 end

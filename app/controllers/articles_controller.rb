@@ -66,6 +66,7 @@ class ArticlesController < ApplicationController
   #   edirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
     def destroy
       @article.destroy
+
       redirect_to articles_url, notice: "#{t('activerecord.models.article')}を削除しました。"
     #   @article = article.find(params[:id])
     # if @article.user == current_user

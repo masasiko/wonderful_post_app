@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   # get 'users/show'
-  root to: 'articles#index'
-  resources :users, only: :show
+   get '/mypage' => 'mypage#index'
   devise_for :users
+  resources :users, only: :show
+  # resources :mypage, only: :index
+
 
   resources :articles
-  resources :sample_articles
+root to: 'articles#index'
 end

@@ -6,7 +6,7 @@
         <% if user_signed_in?%>
           <li class="nav-item">
 
-            <%= link_to "マイページ","/users/#{current_user.id}"%>
+            <%= link_to "マイページ", mypage_path, class: "nav-link active" %>
             <%= link_to "ログアウト", destroy_user_session_path, method: :elete, class: "nav-link active" %>
           </li>
         <% else %>

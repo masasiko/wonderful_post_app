@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
+  # get 'users/show'
+   get '/mypage' => 'mypage#index'
+  devise_for :users
+  resources :users, only: :show
+  # resources :mypage, only: :index
 
-  # get 'articles/index'
+  resources :articles
+root to: 'articles#index'
 
 
     root :to => 'articles#index'
-    resources :sample_articles
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :articles
-
-devise_for :users
-
+   
 
 end

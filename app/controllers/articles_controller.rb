@@ -3,13 +3,17 @@ class ArticlesController < ApplicationController
 
   skip_before_action :authenticate_user!, only: %i[ index show ]
 
-  before_action :set_article, only: %i[ edit update destroy ]
+  before_action :set_article, only: %i[ edit update destroy search]
   def index
 
-    # @articles= Article.all
-     @articles = Article.all.page params[:page]
 
-  end
+    articles=Article.all
+
+    articles=articles.where('title LIKE ?', "%#{params[:title]}%") if  params[:title].present?
+
+    @articles = articles.all.page params[:page]
+
+end
 
   def show
    @article= Article.find(params[:id])
@@ -74,6 +78,14 @@ class ArticlesController < ApplicationController
     #   end
      end
 
+    #  def search
+    #   binding.pry
+    #   @articles=Artilce.search(params[:serch])
+    #  end
+
+
+
+
 
 
   private
@@ -87,11 +99,3 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :content)
     end
   end
-
-  private
-    def baria_user
-      unless User.find_by(public_uid: params[:id]).user_id == current_user.id
-        flash[:notice] = "権限がありません"
-        redirect_to posts_path
-      end
-    end

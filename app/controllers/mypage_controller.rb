@@ -6,11 +6,14 @@ class MypageController < ApplicationController
 
 
   def index
-    # @articles = current_user.articles
+
+
+    articles = current_user.articles
+    articles = articles.where('title LIKE ?', "%#{params[:title]}%") if  params[:title].present?
+
+    @articles = current_user.articles.page params[:page]
     # @users = User.page(params[:page]).per(10)
 
-    #  @users = current_user.articles.page params[:page]
-    # @articles = Article.all.page params[:page]
 
    end
 

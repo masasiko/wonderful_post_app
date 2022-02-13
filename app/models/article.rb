@@ -7,5 +7,7 @@ class Article < ApplicationRecord
   # I18n.t('title') #=> 'Hello World'
   # I18n.t('text') #
   belongs_to :user
+  has_many :tag_articles
+  has_many :tags , through: :tag_articles
 
 end

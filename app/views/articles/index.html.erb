@@ -2,18 +2,8 @@
 
 <h1>記事</h1>
  <%= render partial: "search" %>
-
-
-
  <%= paginate @articles %>
-
-
-
- <%= link_to '記事作成', new_article_path, class: "btn btn-info" %>
-
-<table class="table">
-
-
+ <table class="table">
   <thead>
     <tr>
       <th scope="col">タイトル</th>
@@ -23,21 +13,20 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
-        <td><%= article.title %></td>
+
+        <td>
+          <%= article.title %>
+          <% article.tags.each do |tag| %>
+            <span class="badge rounded-pill bg-primary"><%= tag.name%></span>
+          <% end %>
+       </td>
+
+
         <td><%= article.content %></td>
         <td>
-
           <%= link_to '詳細', article, class: "btn btn-success" %>
-          <%
-=begin%>
- <% if user_signed_in? && current_user.id == article.user_id %>
-          <%= link_to '編集', edit_article_path(article), class: "btn btn-warning" %>
-          <%= link_to '削除', article, class: "btn btn-danger", method: :delete, data: { confirm: '削除しますか？' } %>
-        <% end %>
-<%
-=end%>
         </td>
       </tr>
     <% end %>
   </tbody>
-</table>
+ </table>

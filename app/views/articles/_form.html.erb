@@ -1,9 +1,7 @@
 <%= form_with(model: article, local: true) do |form| %>
   <% if article.errors.any? %>
     <div id="error_explanation">
-
-      <h2><%= article.errors.count %> 件のエラーが発生しました</h2>
-
+      <h2><%= article.errors.count%> 件の対応が必要です</h2> # 追加
 
       <ul>
         <% article.errors.full_messages.each do |message| %>
@@ -11,10 +9,11 @@
         <% end %>
       </ul>
     </div>
+  <% end %>
 
-
-
-
+  <div class="mb-3">
+    <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
+  </div>
 
   <div class="mb-3">
     <%= form.label :title, class: "form-label" %>
@@ -29,22 +28,4 @@
   <div class="actions">
     <%= form.submit '保存', class: "btn btn-primary" %>
   </div>
-<% end %>
-
-
-
-
-  <div class="mb-3">
-    <%= form.label :title, class: "form-label" %>
-    <%= form.text_field :title, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content, class: "form-label" %>
-    <%= form.text_area :content, class: "form-control" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit '保存', class: "btn btn-primary" %>
-  </div>
-<% end %>
+ <% end %>

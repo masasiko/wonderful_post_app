@@ -8,10 +8,9 @@ class ArticlesController < ApplicationController
 
 
     articles=Article.all
-
     articles=articles.where('title LIKE ?', "%#{params[:title]}%") if  params[:title].present?
-
     @articles = articles.all.page params[:page]
+    @tag=Tag.all
 
 end
 
@@ -21,6 +20,7 @@ end
 
   def new
     @article = Article.new
+
   end
 
   def edit
@@ -39,6 +39,7 @@ end
 
 
         if @article.save
+
           redirect_to @article, notice: "#{t('activerecord.models.article')}を作成しました。"
         else
           render :new, status: :unprocessable_entity
@@ -96,6 +97,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :content)
+      params.require(:article).permit(:title, :content,tag_ids: [])
     end
   end

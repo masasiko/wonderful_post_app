@@ -5,6 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+Tag.create(name:"遊び")
+Tag.create(name:"学習")
+Tag.create(name:"仕事")
+
+
 3.times do |i|
    i+=1
    user=User.find_or_create_by!(email:"user00#{i}@test.com") do |_user|
@@ -15,6 +22,7 @@
     n+=1
      user.articles.find_or_create_by!(title:"NO.#{n}:user00#{i} の記事") do |article|
      article.content="NO.#{n}:user00#{i}の記事の本文"
+     article.tag_ids=Tag.all.pluck(:id)
      end
     end
   end
